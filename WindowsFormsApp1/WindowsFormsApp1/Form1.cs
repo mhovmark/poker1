@@ -13,7 +13,9 @@ namespace WindowsFormsApp1
 
     public partial class Form1 : Form
     {
-        Poker mygame = new Poker();
+        static int noOfPlayers = 3;
+        Poker mygame = new Poker(noOfPlayers);
+
         public Form1()
         {
             InitializeComponent();
@@ -30,11 +32,11 @@ namespace WindowsFormsApp1
 
             //nytt spel
             mygame.NewGame(new Kortlek());
-            mygame.DealCards();
+            mygame.DealCardsToAllPlayers();
             label1.Text = mygame.kortlek.GetCardsInDeck();
             //visar players sina kort
-            lblPlayer1.Text = mygame.player1.GetHoldings();
-            lblPlayer2.Text = mygame.player2.GetHoldings();
+            lblPlayer1.Text = mygame.players[0].GetHoldings();
+            lblPlayer2.Text = mygame.players[1].GetHoldings();
 
 
 

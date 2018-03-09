@@ -8,42 +8,54 @@ namespace WindowsFormsApp1
 {
     class Poker
     {
-        public Player player1 = new Player("Player1");
-        public Player player2 = new Player("Player2");
+       
+        public List<Player> players = new List<Player>();
         public Kortlek kortlek = new Kortlek();
 
-        //delar ut korten till 2 spelare
-        public Poker()
+       
+        //Konstruktor
+        public Poker(int noOfPlayers)
         {
-           
-
-
+            for (int i = 0; i < noOfPlayers; i++)
+            {
+                Player player = new Player("Player" + (i + 1).ToString());
+                players.Add(player);
+            }
         }
-        public void  NewGame(Kortlek nyKortlek)
+        public void NewGame(Kortlek nyKortlek)
         {
             kortlek = nyKortlek;
             kortlek.Shuffle();
         }
-        public void DealCards()
+
+        public void DealCardsToAllPlayers()
         {
-            Kort[] halkort1 = new Kort[2];
-            Kort[] halkort2 = new Kort[2];
-            halkort1[0] = new Kort();
-            halkort1[1] = new Kort();
-
-            halkort1[0] = kortlek.GetNextCardInDeck();
-            halkort1[1] = kortlek.GetNextCardInDeck();
-            player1.Halkort = halkort1;
-
-            halkort2[0] = kortlek.GetNextCardInDeck();
-            halkort2[1] = kortlek.GetNextCardInDeck();
-            player2.Halkort = halkort2;
+            //tar reda på hur många spelare som finns
+            for (int i = 0; i < players.Count(); i++)
+            {
+                DealCards(i);
+            }
         }
+        private void DealCards(int toPlayer)
+        {
+            Kort[] halkort = new Kort[2];
+            halkort[0] = new Kort();
+            halkort[1] = new Kort();
+            halkort[0] = kortlek.GetNextCardInDeck();
+            halkort[1] = kortlek.GetNextCardInDeck();
+
+            players.ElementAt(toPlayer).Halkort = halkort;
+        }
+       
     }
     class Player
     {
         private string name;
         Kort[] halkort = new Kort[2];
+        public Player()
+        {
+
+        }
         public Player(string Name)
         {
             this.Name = Name;
