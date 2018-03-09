@@ -8,7 +8,6 @@ namespace WindowsFormsApp1
 {
     class Kortlek
     {
-        private int[] hej = new int[10];
         private Kort[] korten;
         //skapar valörer
         private Valor hjarter = new Valor("Hjärter", "h", 1);
